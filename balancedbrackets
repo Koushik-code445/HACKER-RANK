@@ -1,0 +1,27 @@
+import os
+
+def is_balanced(string):
+    stack = []
+    bracket_map = {')': '(', '}': '{', ']': '['}
+
+    for char in string:
+        if char in bracket_map.values():
+            stack.append(char)
+        elif char in bracket_map.keys():
+            if stack and stack[-1] == bracket_map[char]:
+                stack.pop()
+            else:
+                return "NO"
+        else:
+            return "NO"
+
+    return "YES" if not stack else "NO"
+
+if __name__ == '__main__':
+    with open(os.environ['OUTPUT_PATH'], 'w') as file_ptr:
+        test_cases = int(input().strip())
+
+        for _ in range(test_cases):
+            string = input().strip()
+            result = is_balanced(string)
+            file_ptr.write(result + '\n')
